@@ -39,7 +39,6 @@ public class ProcessTokens {
         } catch (IOException ioe) {
             System.err.println("Problem Reading File: " + ioe);
         }
-
         return count;
     }
 
@@ -61,15 +60,21 @@ public class ProcessTokens {
      * @param line
      */
     private void parseLine(String line) {
-
+        String token = "";
+        for (KnownTokens kt : KnownTokens.values()) {
+            token = getTextByPattern(kt.getRegex(), line);
+            if (!token.equals("")) {//Token found with regex
+                //TODO how to use the found token to print then get its length and send that &rest as substring recursively
+                break;
+            }
+        }
     }
 
     protected String getTextByPattern(String regex, String string) {
         String found = "";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(string);
-        boolean matches = m.matches();
-        if (matches) {
+        if (m.matches()) {
             found = m.group();
         }
         return found;
