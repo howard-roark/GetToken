@@ -1,56 +1,55 @@
 package Tokenizer;
 
-import java.util.HashMap;
-
 /**
- * Created by matthewmcguire on 10/2/14.
+ * Created by matthewmcguire on 10/4/14.
  */
-public class KnownTokens {
-    private static final HashMap<Integer, String> TOKENS = new HashMap<Integer, String>();
+public enum KnownTokens {
+    IF("^(IF)", "IF", 1),
+    THEN("^(THEN)", "THEN", 2),
+    ELSE("^(ELSE)", "ELSE", 3),
+    FI("^(FI)", "FI", 4),
+    LOOP("^(LOOP)", "LOOP", 5),
+    BREAK("^(BREAK)", "BREAK", 6),
+    READ("^(READ)", "READ", 7),
+    PRINT("^(PRINT)", "PRINT", 8),
+    AND("^(AND)", "AND", 9),
+    OR("^(OR)", "OR", 10),
+    PERIOD("^(\\.)", "PERIOD", 11),
+    OPEN_PAREN("^(\\))", "(", 12),
+    CLOSE_PAREN("^(\\()", ")", 13),
+    BACK_SLASH("^(\\/)", "/", 14),
+    STAR("^(\\*)", "*", 15),
+    DASH("^(\\-)", "-", 16),
+    PLUS("^(\\+)", "+", 17),
+    NOT_EQUAL("^(\\<\\>)", "<>", 18),
+    GREAT_THAN("^(\\>)", ">", 19),
+    GREAT_EQUAL("^(\\>\\=)", ">=", 20),
+    EQUAL("^(\\=)", "=", 21),
+    LT_EQUAL("^(\\<\\=)", "<=", 22),
+    LESS_THAN("^(\\<)", "<", 23),
+    ASSIGN("^(\\:\\=)", ":=", 24),
+    SEMI_COLON("^(\\;)", ";", 25),
+    SPACE("^([\\s])", "SPACE", 26),
+    EOLN("^(\\n)", "\n", 27),
+    IDS("", "identifiers", 28),
+    NUMS("^([0-9]+)", "numbers", 29),
+    STRING("(\"(.*?)\")", "string", 30),
+    END_DOC("^(\u001a)", "END", 31);
 
-    /**
-     * Builds a map of tokens using key value pairs.  Key is the number that the token is, and the value is the
-     * token itself.
-     */
-    protected static void buildTokenMap() {
-        TOKENS.put(1, "IF");
-        TOKENS.put(2, "THEN");
-        TOKENS.put(4, "FI");
-        TOKENS.put(5, "LOOP");
-        TOKENS.put(6, "BREAK");
-        TOKENS.put(7, "READ");
-        TOKENS.put(8, "PRINT");
-        TOKENS.put(9, "AND");
-        TOKENS.put(10, "OR");
-        TOKENS.put(11, ".");
-        TOKENS.put(12, ")");
-        TOKENS.put(13, "(");
-        TOKENS.put(14, "/");
-        TOKENS.put(15, "*");
-        TOKENS.put(16, "-");
-        TOKENS.put(17, "+");
-        TOKENS.put(18, "<>");
-        TOKENS.put(19, ">");
-        TOKENS.put(20, ">=");
-        TOKENS.put(21, "=");
-        TOKENS.put(22, "<=");
-        TOKENS.put(23, "<");
-        TOKENS.put(24, ":=");
-        TOKENS.put(25, ";");
-        TOKENS.put(26, "SPACE");
-        TOKENS.put(27, "EOLN");
-        TOKENS.put(28, "identifiers");
-        TOKENS.put(29, "numbers");
-        TOKENS.put(30, "END");
+    private String regex, token;
+    private int tokenId;
+
+    private KnownTokens(String regex, String token, int tokenId) {
+        this.regex = regex;
+        this.token = token;
+        this.tokenId = tokenId;
     }
 
-    /**
-     * When called will return the value of the token based on the key passed in.
-     *
-     * @param key
-     * @return
-     */
-    protected String printTokenKV (int key) {
-        return TOKENS.get(key) + " : " + key;
+    public String getRegex() {
+        return regex.trim();
+    }
+
+    public String getTokenAndId() {
+        return token.trim() + " " + tokenId;
     }
 }

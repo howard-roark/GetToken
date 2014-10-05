@@ -1,14 +1,10 @@
 package Tokenizer;
 
 /* Import packages necessary for reading in files */
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by matthewmcguire on 10/2/14.
@@ -22,31 +18,76 @@ public class ProcessTokens {
      * @return
      * @throws IOException
      */
-    protected int readFile(File f) throws IOException {
+    protected int readFile(File f) {
         int count = 0;
-        FileInputStream fileInputStream = new FileInputStream(f);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+        try {
+            FileInputStream fileInputStream = new FileInputStream(f);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
 
-        /* Add each line in the file to a list of Strings so that we can close the stream / reader ASAP */
-        String line = null;
-        List<String> fileByLine = new ArrayList<String>();
-        while ((line = bufferedReader.readLine()) != null) {
-            count++;
-            fileByLine.add(line);
+            /* Add each line in the file to a list of Strings so that we can close the stream / reader ASAP */
+            String line = null;
+            String[] fileByLine = new String[100];
+            while ((line = bufferedReader.readLine()) != null) {
+                fileByLine[count] = line;
+                count++;
+            }
+            pullLine(fileByLine);
+
+            /*Close the stream and reader */
+            fileInputStream.close();
+            bufferedReader.close();
+        } catch (IOException ioe) {
+            System.err.println("Problem Reading File: " + ioe);
         }
-        getTokens(fileByLine);
-
-        /*Close the stream and reader */
-        fileInputStream.close();
-        bufferedReader.close();
 
         return count;
     }
 
-    private void getTokens(List<String> fbl) {
+    /**
+     * Pull one line at a time out of the array of data file lines and send to recursive method to
+     * be parsed for tokens.
+     *
+     * @param lines
+     */
+    private void pullLine(String... lines) {
+        for (String line : lines) {
+            parseLine(line);
+        }
+    }
+
+    /**
+     * Recursive method to parse each data file line for individual tokens.
+     *
+     * @param line
+     */
+    private void parseLine(String line) {
 
     }
 
+    protected String getTextByPattern(String regex, String string) {
+        String found = "";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(string);
+        boolean matches = m.matches();
+        if (matches) {
+            found = m.group();
+        }
+        return found;
+    }
+
+    /**
+     * Method to split value of enum so that it can be printed to the console properly.
+     *
+     * @param knownToken
+     */
+    private void printTokenAndId(String knownToken) {
+        String[] tokenByParts = knownToken.split(":");
+        if ((tokenByParts[1] != null) && (tokenByParts[2] != null)) {
+            p(tokenByParts[1] + " " + tokenByParts[2]);
+        } else {
+            p("ERROR: TOKEN NOT READ PROPERLY");
+        }
+    }
     /**
      * Method to avoid using System.out for every call to print to console.
      *
