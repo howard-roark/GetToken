@@ -29,6 +29,7 @@ public class ProcessTokensTest {
 
     /**
      * Test that the file is being read in properly.
+     * Uncomment one file at a time to view output of that file alone.
      */
     @Test
     public void testFileRead() {

@@ -63,8 +63,8 @@ public class ProcessTokens {
      */
     private String parseLine(String line) {
         String token = "";
-        if (line.length() <= 0) {
-            line = "";
+        if (line.length() <= 0) {//The line has ended, new line will be starting
+            p(KnownTokens.EOLN.getTokenAndId());
         } else
             for (KnownTokens kt : KnownTokens.values()) {
                 token = getTextByPattern(kt.getRegex(), line);

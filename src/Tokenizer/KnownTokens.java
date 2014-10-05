@@ -30,11 +30,11 @@ public enum KnownTokens {
     ASSIGN("^(\\:\\=)", ":=", 24),
     SEMI_COLON("^(\\;)", ";", 25),
     SPACE("^([\\s])", "SPACE", 26),
-    EOLN("^(\\n)", "\n", 27),
-    IDS("^([A-Z]+)", "identifiers", 28),
+    EOLN("^(\\n)", "EOLN", 27),
+    END_DOC("^(END)", "END", 31),
     NUMS("^([0-9]+)", "numbers", 29),
     STRING("(\"(.*?)\")", "string", 30),
-    END_DOC("^(\u001a)", "END", 31);
+    IDS("^([A-Z]+)", "identifiers", 28);
 
     private String regex, token;
     private int tokenId;
