@@ -61,23 +61,25 @@ public class ProcessTokens {
      *
      * @param line
      */
-    private void parseLine(String line) {
+    private String parseLine(String line) {
         String token = "";
-        while (line.length() > 0) {
+        if (line.length() <= 0) {
+            line = "";
+        } else
             for (KnownTokens kt : KnownTokens.values()) {
                 token = getTextByPattern(kt.getRegex(), line);
                 if (!token.equals("")) {
                     p(kt.getTokenAndId());
                     parseLine(line.substring(token.length()));
+                    break;
                 }
             }
-            break;
-        }
+        return line;
     }
 
     protected String getTextByPattern(String regex, String string) {
         String found = "";
-        Pattern p = Pattern.compile(regex);
+        Pattern p = Pattern.compile(regex, Pattern.UNICODE_CHARACTER_CLASS);
         Matcher m = p.matcher(string);
         if ((m.find()) && (m.groupCount() > 0)) {
             found = m.group(1);
