@@ -24,14 +24,11 @@ public class ProcessTokens {
             FileInputStream fileInputStream = new FileInputStream(f);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
 
-            /* Add each line in the file to a list of Strings so that we can close the stream / reader ASAP */
-            String line = null;
-            String[] fileByLine = new String[100];
+            String line = "";
             while ((line = bufferedReader.readLine()) != null) {
-                fileByLine[count] = line;
+                parseLine(line);
                 count++;
             }
-            pullLine(fileByLine);
 
             /*Close the stream and reader */
             fileInputStream.close();
@@ -40,20 +37,6 @@ public class ProcessTokens {
             System.err.println("Problem Reading File: " + ioe);
         }
         return count;
-    }
-
-    /**
-     * Pull one line at a time out of the array of data file lines and send to recursive method to
-     * be parsed for tokens.
-     *
-     * @param lines
-     */
-    private void pullLine(String... lines) {
-        for (String line : lines) {
-            if (line != null) {
-                parseLine(line);
-            }
-        }
     }
 
     /**
@@ -79,26 +62,12 @@ public class ProcessTokens {
 
     protected String getTextByPattern(String regex, String string) {
         String found = "";
-        Pattern p = Pattern.compile(regex, Pattern.UNICODE_CHARACTER_CLASS);
+        Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(string);
         if ((m.find()) && (m.groupCount() > 0)) {
             found = m.group(1);
         }
         return found;
-    }
-
-    /**
-     * Method to split value of enum so that it can be printed to the console properly.
-     *
-     * @param knownToken
-     */
-    private void printTokenAndId(String knownToken) {
-        String[] tokenByParts = knownToken.split(":");
-        if ((tokenByParts[1] != null) && (tokenByParts[2] != null)) {
-            p(tokenByParts[1] + " " + tokenByParts[2]);
-        } else {
-            p("ERROR: TOKEN NOT READ PROPERLY");
-        }
     }
 
     /**

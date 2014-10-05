@@ -1,6 +1,9 @@
 package Tokenizer;
 
 /**
+ * Enum KnownTokens will be the object that holds values of the Tokens we are looking to parse, the regular expressions
+ * needed to parse those tokens and the id's of the tokens.
+ *
  * Created by matthewmcguire on 10/4/14.
  */
 public enum KnownTokens {
@@ -39,16 +42,33 @@ public enum KnownTokens {
     private String regex, token;
     private int tokenId;
 
+    /**
+     * Build enum so that when called from ProcessTokens the proper data will be available.
+     *
+     * @param regex
+     * @param token
+     * @param tokenId
+     */
     private KnownTokens(String regex, String token, int tokenId) {
         this.regex = regex;
         this.token = token;
         this.tokenId = tokenId;
     }
 
+    /**
+     * Return the REGEXP needed to parse token from data file line.
+     *
+     * @return
+     */
     public String getRegex() {
         return regex.trim();
     }
 
+    /**
+     * Return the token and token id so that it can be printed to the console appropriately.
+     *
+     * @return
+     */
     public String getTokenAndId() {
         return token + " " + tokenId;
     }
