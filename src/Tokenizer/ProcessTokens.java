@@ -62,10 +62,16 @@ public class ProcessTokens {
     private void parseLine(String line) {
         String token = "";
         for (KnownTokens kt : KnownTokens.values()) {
-            token = getTextByPattern(kt.getRegex(), line);
-            if (!token.equals("")) {//Token found with regex
-                //TODO how to use the found token to print then get its length and send that &rest as substring recursively
-                break;
+            if (!line.equals("") && line != null) {
+                token = getTextByPattern(kt.getRegex(), line);
+                if (!token.equals("")) {//Token found with regex
+                    p(kt.getTokenAndId());
+                    if (token.length() == line.length()) {
+                        break;
+                    } else {
+                        parseLine(line.substring(token.length()));
+                    }
+                }
             }
         }
     }
@@ -93,6 +99,7 @@ public class ProcessTokens {
             p("ERROR: TOKEN NOT READ PROPERLY");
         }
     }
+
     /**
      * Method to avoid using System.out for every call to print to console.
      *

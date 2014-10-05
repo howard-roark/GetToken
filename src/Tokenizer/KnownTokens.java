@@ -31,7 +31,7 @@ public enum KnownTokens {
     SEMI_COLON("^(\\;)", ";", 25),
     SPACE("^([\\s])", "SPACE", 26),
     EOLN("^(\\n)", "\n", 27),
-    IDS("", "identifiers", 28),
+    IDS("^([A-Z]+)", "identifiers", 28),
     NUMS("^([0-9]+)", "numbers", 29),
     STRING("(\"(.*?)\")", "string", 30),
     END_DOC("^(\u001a)", "END", 31);
@@ -50,6 +50,6 @@ public enum KnownTokens {
     }
 
     public String getTokenAndId() {
-        return token.trim() + " " + tokenId;
+        return token + " " + tokenId;
     }
 }

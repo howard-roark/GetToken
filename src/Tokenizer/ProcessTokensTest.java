@@ -39,6 +39,16 @@ public class ProcessTokensTest {
     }
 
     /**
+     * Make sure that the Enum KnowTokens is returning the proper value when called.
+     */
+    @Test
+    public void testKnowTokensReturn() {
+        assertEquals("^(IF)", KnownTokens.IF.getRegex());
+        assertEquals("<= 22", KnownTokens.LT_EQUAL.getTokenAndId());
+        pt.p("INITIAL UNIT TEST RESULT: Known Tokens Enums returned properly");
+    }
+
+    /**
      * Test the helper method used to avoid calling Pattern and Matcher for each regex operation.
      */
     @Test
@@ -46,15 +56,5 @@ public class ProcessTokensTest {
         assertEquals("ABC", pt.getTextByPattern("(.*?)", "ABC"));
         assertEquals("\"Hello, World!\"", pt.getTextByPattern("(\"(.*?)\")", "\"Hello, World!\""));
         pt.p("INITIAL UNIT TEST RESULT: REGEX helper method parsing strings properly");
-    }
-
-    /**
-     * Make sure that the Enum KnowTokens is returning the proper value when called.
-     */
-    @Test
-    public void testKnowTokensReturn() {
-        assertEquals("^(IF)", KnownTokens.IF.getRegex());
-        assertEquals("<= 22", KnownTokens.LT_EQUAL.getTokenAndId());
-        pt.p("INITIAL UNIT TEST RESULT: Know Tokens Enums returned properly");
     }
 }
