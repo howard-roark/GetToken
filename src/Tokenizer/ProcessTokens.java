@@ -50,7 +50,9 @@ public class ProcessTokens {
      */
     private void pullLine(String... lines) {
         for (String line : lines) {
-            parseLine(line);
+            if (line != null) {
+                parseLine(line);
+            }
         }
     }
 
@@ -61,18 +63,15 @@ public class ProcessTokens {
      */
     private void parseLine(String line) {
         String token = "";
-        for (KnownTokens kt : KnownTokens.values()) {
-            if (!line.equals("") && line != null) {
+        while (line.length() > 0) {
+            for (KnownTokens kt : KnownTokens.values()) {
                 token = getTextByPattern(kt.getRegex(), line);
-                if (!token.equals("")) {//Token found with regex
+                if (!token.equals("")) {
                     p(kt.getTokenAndId());
-                    if (token.length() == line.length()) {
-                        break;
-                    } else {
-                        parseLine(line.substring(token.length()));
-                    }
+                    parseLine(line.substring(token.length()));
                 }
             }
+            break;
         }
     }
 
@@ -80,8 +79,8 @@ public class ProcessTokens {
         String found = "";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(string);
-        if (m.matches()) {
-            found = m.group();
+        if ((m.find()) && (m.groupCount() > 0)) {
+            found = m.group(1);
         }
         return found;
     }

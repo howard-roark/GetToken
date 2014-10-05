@@ -53,7 +53,7 @@ public class ProcessTokensTest {
      */
     @Test
     public void testGetTextByPattern() {
-        assertEquals("ABC", pt.getTextByPattern("(.*?)", "ABC"));
+        assertEquals("ABC", pt.getTextByPattern("(.*)", "ABC"));
         assertEquals("\"Hello, World!\"", pt.getTextByPattern("(\"(.*?)\")", "\"Hello, World!\""));
         pt.p("INITIAL UNIT TEST RESULT: REGEX helper method parsing strings properly");
     }
