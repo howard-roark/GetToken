@@ -36,7 +36,6 @@ public class ProcessTokensTest {
         assertEquals((Integer) 25, (Integer)pt.readFile(file));
 //        assertEquals((Integer) 1, (Integer) pt.readFile(oneLine));
 //        assertEquals((Integer) 0, (Integer) pt.readFile(noData));
-        pt.p("INITIAL UNIT TEST RESULT: Files Read Correctly");
     }
 
     /**
@@ -46,7 +45,6 @@ public class ProcessTokensTest {
     public void testKnowTokensReturn() {
         assertEquals("^(IF)", KnownTokens.IF.getRegex());
         assertEquals("<= 22", KnownTokens.LT_EQUAL.getTokenAndId());
-        pt.p("INITIAL UNIT TEST RESULT: Known Tokens Enums returned properly");
     }
 
     /**
@@ -56,6 +54,5 @@ public class ProcessTokensTest {
     public void testGetTextByPattern() {
         assertEquals("ABC", pt.getTextByPattern("(.*)", "ABC"));
         assertEquals("\"Hello, World!\"", pt.getTextByPattern("(\"(.*?)\")", "\"Hello, World!\""));
-        pt.p("INITIAL UNIT TEST RESULT: REGEX helper method parsing strings properly");
     }
 }

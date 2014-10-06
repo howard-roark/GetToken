@@ -35,10 +35,14 @@ public enum KnownTokens {
     SPACE("^([\\s])", "SPACE", 26),
     EOLN("^(\\n)", "EOLN", 27),
     END_DOC("^(END)", "END", 31),
+    NUMS_WITH_BOTH("^([0-9]+\\.[0-9]+)", "numbers", 29),
+    NUMS_WITH_LEFT("^([0-9]+\\.)", "numbers", 29),
+    NUMS_WITH_RIGHT("^(\\.[0-9]+)", "numbers", 29),
     NUMS("^([0-9]+)", "numbers", 29),
     STRING("(\"(.*?)\")", "string", 30),
     IDS("^([A-Z]+)", "identifiers", 28);
 
+    /* Instance Variables needed when constructing each KnowToken */
     private String regex, token;
     private int tokenId;
 
@@ -72,4 +76,11 @@ public enum KnownTokens {
     public String getTokenAndId() {
         return token + " " + tokenId;
     }
+
+    /**
+     * Return the value of tokenId.
+     *
+     * @return
+     */
+    public int getTokenId() { return tokenId; }
 }

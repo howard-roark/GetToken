@@ -26,9 +26,14 @@ public class ProcessTokens {
 
             String line = "";
             while ((line = bufferedReader.readLine()) != null) {
-                parseLine(line);
+                getToken(line);
+                if (!line.equals("END")) {//Do not print EOL when it is the END statement.
+                    p(KnownTokens.EOLN.getTokenAndId());
+                }
                 count++;
             }
+            /* File is at End of Document */
+            p(KnownTokens.END_DOC.getTokenAndId());
 
             /*Close the stream and reader */
             fileInputStream.close();
@@ -44,16 +49,21 @@ public class ProcessTokens {
      *
      * @param line
      */
-    private String parseLine(String line) {
+    private String getToken(String line) {
         String token = "";
-        if (line.length() == 0) {//The line has ended, new line will be starting
-            p(KnownTokens.EOLN.getTokenAndId());
-        } else {
+        if (line.length() != 0) {
             for (KnownTokens kt : KnownTokens.values()) {
                 token = getTextByPattern(kt.getRegex(), line);
                 if (!token.equals("")) {
-                    p(kt.getTokenAndId());
-                    parseLine(line.substring(token.length()));
+
+                    if ((kt.getTokenId() != 27) && (kt.getTokenId() != 31)) {//EOL and EOD handled in readFile
+                        p(kt.getTokenAndId());
+                    }
+
+                    if ((kt.getTokenId() == 29) || (kt.getTokenId() == 30)) {//Print the actual string and numbers
+                        p("\t|__VALUE IS: " + token);
+                    }
+                    getToken(line.substring(token.length()));
                     break;
                 }
             }
