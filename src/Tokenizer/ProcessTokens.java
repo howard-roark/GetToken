@@ -12,7 +12,8 @@ import java.util.regex.Pattern;
 public class ProcessTokens {
 
     /**
-     * Read the data file in from the unit tests and call getToken for each line read in.
+     * Read the data file in from the unit tests and call getToken for each line
+     * read in.
      *
      * @param f data.txt being passed in from unit test
      * @return
@@ -22,13 +23,14 @@ public class ProcessTokens {
         int count = 0;
         try {
             FileInputStream fileInputStream = new FileInputStream(f);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+            BufferedReader bufferedReader = new BufferedReader(new
+                InputStreamReader(fileInputStream));
 
             String line = "";
             while ((line = bufferedReader.readLine()) != null) {
                 getToken(line);
-                if (!line.equals("END")) {//Do not print EOL when it is the END statement.
-                    p(KnownTokens.EOLN.getTokenAndId());
+                if (!line.equals("END")) {//Do not print EOL when at END.
+                    p(KnownTokens.EOLN.getTokenAndId() + "\n");
                 }
                 count++;
             }
@@ -56,11 +58,13 @@ public class ProcessTokens {
                 token = getTextByPattern(kt.getRegex(), line);
                 if (!token.equals("")) {
 
-                    if ((kt.getTokenId() != 27) && (kt.getTokenId() != 31)) {//EOL and EOD handled in readFile
+                    //EOL and EOD handled in readFile
+                    if ((kt.getTokenId() != 27) && (kt.getTokenId() != 31)) {
                         p(kt.getTokenAndId());
                     }
 
-                    if ((kt.getTokenId() == 29) || (kt.getTokenId() == 30)) {//Print the actual string and numbers
+                    //Print the actual string and numbers
+                    if ((kt.getTokenId() == 29) || (kt.getTokenId() == 30)) {
                         p("\t|__VALUE IS: " + token);
                     }
                     getToken(line.substring(token.length()));

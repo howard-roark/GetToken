@@ -7,11 +7,15 @@ import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 
-
+/**
+ * @author Matthew McGuire
+ * Course: CS 3210
+ * Turn In Date: 6 October 2014
+ */
 public class ProcessTokensTest {
 
     /* Data files to test Tokenizer*/
-    File file, noData, oneLine;
+    File file;
 
     /* Create ProcessTokens instance to call non-static methods for testing*/
     ProcessTokens pt;
@@ -23,8 +27,6 @@ public class ProcessTokensTest {
     public void setUp() {
         pt = new ProcessTokens();
         file = new File("/Users/matthewmcguire/Documents/MSUD/Fall_14/CS_3210/GetToken/src/Tokenizer/data.txt");
-        noData = new File("/Users/matthewmcguire/Documents/MSUD/Fall_14/CS_3210/GetToken/src/Tokenizer/noData.txt");
-        oneLine = new File("/Users/matthewmcguire/Documents/MSUD/Fall_14/CS_3210/GetToken/src/Tokenizer/oneLine.txt");
     }
 
     /**
@@ -34,12 +36,11 @@ public class ProcessTokensTest {
     @Test
     public void testFileRead() {
         assertEquals((Integer) 25, (Integer)pt.readFile(file));
-//        assertEquals((Integer) 1, (Integer) pt.readFile(oneLine));
-//        assertEquals((Integer) 0, (Integer) pt.readFile(noData));
     }
 
     /**
-     * Make sure that the Enum KnowTokens is returning the proper value when called.
+     * Make sure that the Enum KnowTokens is returning the proper value when 
+     * called.
      */
     @Test
     public void testKnowTokensReturn() {
@@ -48,11 +49,13 @@ public class ProcessTokensTest {
     }
 
     /**
-     * Test the helper method used to avoid calling Pattern and Matcher for each regex operation.
+     * Test the helper method used to avoid calling Pattern and Matcher for each
+     * regex operation.
      */
     @Test
     public void testGetTextByPattern() {
         assertEquals("ABC", pt.getTextByPattern("(.*)", "ABC"));
-        assertEquals("\"Hello, World!\"", pt.getTextByPattern("(\"(.*?)\")", "\"Hello, World!\""));
+        assertEquals("\"Hello, World!\"", pt.getTextByPattern("(\"(.*?)\")",
+            "\"Hello, World!\""));
     }
 }

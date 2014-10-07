@@ -1,9 +1,9 @@
 package Tokenizer;
 
 /**
- * Enum KnownTokens will be the object that holds values of the Tokens we are looking to parse, the regular expressions
- * needed to parse those tokens and the id's of the tokens.
- *
+ * Enum KnownTokens will be the object that holds values of the Tokens we are
+ * looking to parse, the regular expressions needed to parse those tokens and
+ * the id's of the tokens.
  * Created by matthewmcguire on 10/4/14.
  */
 public enum KnownTokens {
@@ -47,7 +47,8 @@ public enum KnownTokens {
     private int tokenId;
 
     /**
-     * Build enum so that when called from ProcessTokens the proper data will be available.
+     * Build enum so that when called from ProcessTokens the proper data will
+     * be available.
      *
      * @param regex
      * @param token
@@ -69,7 +70,8 @@ public enum KnownTokens {
     }
 
     /**
-     * Return the token and token id so that it can be printed to the console appropriately.
+     * Return the token and token id so that it can be printed to the console
+     * appropriately.
      *
      * @return
      */
